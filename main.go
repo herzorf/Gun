@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
 )
 
 func main() {
@@ -27,5 +28,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(all))
+	printCityList(string(all))
+}
+
+func printCityList(content string) {
+	compile := regexp.MustCompile(`<a href="(http://www.zhenai.com/zhenghun/[0-9a-z]+)"[^>]*>([^<]+)</a>`)
+	submatch := compile.FindAllStringSubmatch(content, -1)
+	for index, value := range submatch {
+		fmt.Printf("%d:%s %s\n", index, value[1], value[2])
+	}
 }
