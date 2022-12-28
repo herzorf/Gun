@@ -2,33 +2,16 @@ package main
 
 import (
 	"fmt"
-	"io"
-	"net/http"
+	"github.com/herzorf/gun/fetcher"
 	"regexp"
 )
 
 func main() {
-	response, err := http.Get("https://www.zhenai.com/zhenghun")
-
+	content, err := fetcher.Fetcher("http://www.zhenai.com/zhenghun")
 	if err != nil {
 		panic(err)
 	}
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-			panic(err)
-		}
-	}(response.Body)
-	if response.StatusCode != http.StatusOK {
-		fmt.Println("err: status code ", response.StatusCode)
-		return
-	}
-	all, err := io.ReadAll(response.Body)
-
-	if err != nil {
-		panic(err)
-	}
-	printCityList(string(all))
+	printCityList(string(content))
 }
 
 func printCityList(content string) {
