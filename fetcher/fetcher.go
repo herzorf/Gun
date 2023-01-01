@@ -1,33 +1,24 @@
 package fetcher
 
 import (
-	"fmt"
-	"io"
-	"net/http"
+	"context"
+	"github.com/chromedp/chromedp"
 )
 
 func Fetcher(url string) ([]byte, error) {
-	response, err := http.Get(url)
+	// create context
+	ctx, cancel := chromedp.NewContext(context.Background())
+	defer cancel()
 
+	// run task list.
+	var res string
+	err := chromedp.Run(ctx,
+		chromedp.Navigate(url),
+		chromedp.OuterHTML(`document.querySelector(".mhy-article-list")`, &res, chromedp.ByJSPath),
+	)
 	if err != nil {
-		return nil, err
+		return []byte(nil), err
 	}
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-			panic(err)
-		}
-	}(response.Body)
-
-	if response.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("err status code: %d", response.StatusCode)
-	}
-
-	all, err := io.ReadAll(response.Body)
-
-	if err != nil {
-		return nil, err
-	}
-	return all, nil
+	return []byte(res), nil
 
 }
