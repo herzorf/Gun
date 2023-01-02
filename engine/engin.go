@@ -24,6 +24,5 @@ func Run(seed ...Request) {
 		}
 		parserResult := req.ParserFunc(content)
 		requests = append(requests, parserResult.Requests...)
-		fmt.Printf("got item :%+v\n", parserResult.Item)
 	}
 }

@@ -2,12 +2,12 @@ package engine
 
 type Request struct {
 	Url        string
+	Data       interface{}
 	ParserFunc func([]byte) ParserResult
 }
 
 type ParserResult struct {
 	Requests []Request
-	Item     []interface{}
 }
 
 func NilParser([]byte) ParserResult {
