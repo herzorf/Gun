@@ -17,14 +17,13 @@ func Run(seed ...Request) {
 		req := requests[0]
 		requests = requests[1:]
 		fmt.Printf("fetching url:%s\n", req.Url)
-		content, err := fetcher.Fetcher(req.Url, ".mhy-article-list")
+		content, err := fetcher.Fetcher(req.Url, ".mhy-article-list__body")
 		if err != nil {
 			log.Printf("fetcher err\n url: %s\n err: %v", req.Url, err)
 			continue
 		}
-		fmt.Printf(string(content))
-		//parserResult := req.ParserFunc(content)
-		//requests = append(requests, parserResult.Requests...)
-		//fmt.Printf("got item :%+v\n", parserResult.Item)
+		parserResult := req.ParserFunc(content)
+		requests = append(requests, parserResult.Requests...)
+		fmt.Printf("got item :%+v\n", parserResult.Item)
 	}
 }

@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/herzorf/gun/engine"
-	"github.com/herzorf/gun/zhenai/parser"
+	"github.com/herzorf/gun/miyoushe/parser"
 )
 
 func main() {
