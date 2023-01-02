@@ -17,7 +17,7 @@ func Run(seed ...Request) {
 		req := requests[0]
 		requests = requests[1:]
 		fmt.Printf("fetching url:%s\n", req.Url)
-		content, err := fetcher.Fetcher(req.Url)
+		content, err := fetcher.Fetcher(req.Url, ".mhy-article-list")
 		if err != nil {
 			log.Printf("fetcher err\n url: %s\n err: %v", req.Url, err)
 			continue
