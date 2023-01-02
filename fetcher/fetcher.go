@@ -7,12 +7,9 @@ import (
 )
 
 func Fetcher(url string, selector string) ([]byte, error) {
-	// create context
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
 
-	// run task list.
-	fmt.Println(selector)
 	var res string
 	err := chromedp.Run(ctx,
 		chromedp.Navigate(url),
