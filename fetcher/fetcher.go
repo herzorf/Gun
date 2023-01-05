@@ -4,12 +4,14 @@ import (
 	"context"
 	"fmt"
 	"github.com/chromedp/chromedp"
+	"time"
 )
 
 func Fetcher(url string) ([]byte, error) {
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
-
+	ctx, cancel = context.WithTimeout(ctx, 15*time.Second)
+	defer cancel()
 	var res string
 	err := chromedp.Run(ctx,
 		chromedp.Navigate(url),
