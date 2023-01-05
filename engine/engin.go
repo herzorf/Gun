@@ -18,7 +18,6 @@ func Run(seed ...Request) {
 		requests = requests[1:]
 		fmt.Printf("fetching url:%s\n", req.Url)
 		content, err := fetcher.Fetcher(req.Url)
-		//fmt.Printf(string(content))
 		if err != nil {
 			log.Printf("fetcher err\n url: %s\n err: %v", req.Url, err)
 			continue

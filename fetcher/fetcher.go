@@ -13,7 +13,7 @@ func Fetcher(url string) ([]byte, error) {
 	var res string
 	err := chromedp.Run(ctx,
 		chromedp.Navigate(url),
-		chromedp.OuterHTML(fmt.Sprintf(`document.querySelector("body")`), &res, chromedp.ByJSPath),
+		chromedp.OuterHTML(fmt.Sprintf(`document.querySelector(".mhy-layout__main")`), &res, chromedp.ByJSPath),
 	)
 	if err != nil {
 		return []byte(nil), err
