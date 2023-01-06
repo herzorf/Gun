@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func MHYArticleListParse(content []byte) engine.ParserResult {
+func MHYArticleListParse(req engine.Request, content []byte) engine.ParserResult {
 	result := engine.ParserResult{}
 	doc, err := goquery.NewDocumentFromReader(bytes.NewReader(content))
 	if err != nil {

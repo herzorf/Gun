@@ -22,7 +22,7 @@ func Run(seed ...Request) {
 			log.Printf("fetcher err\n url: %s\n err: %v", req.Url, err)
 			continue
 		}
-		parserResult := req.ParserFunc(content)
+		parserResult := req.ParserFunc(req, content)
 		requests = append(requests, parserResult.Requests...)
 	}
 }
