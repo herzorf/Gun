@@ -27,6 +27,6 @@ func MHYArticleItemParse(request engine.Request, content []byte) engine.ParserRe
 	})
 	request.Data.DataSrc = dataSrc
 
-	fmt.Printf("%+v", request)
+	fmt.Printf("%+v\n", request)
 	return engine.ParserResult{}
 }
