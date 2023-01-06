@@ -12,8 +12,12 @@ func Run(seed ...Request) {
 	for _, req := range seed {
 		requests = append(requests, req)
 	}
-
+	var count = 5
 	for len(requests) > 0 {
+		if count < 0 {
+			break
+		}
+		count--
 		req := requests[0]
 		requests = requests[1:]
 		fmt.Printf("fetching url:%s\n", req.Url)

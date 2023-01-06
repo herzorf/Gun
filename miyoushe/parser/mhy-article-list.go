@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func MHYArticleListParse(req engine.Request, content []byte) engine.ParserResult {
+func MHYArticleListParse(request engine.Request, content []byte) engine.ParserResult {
 	result := engine.ParserResult{}
 	doc, err := goquery.NewDocumentFromReader(bytes.NewReader(content))
 	if err != nil {
@@ -32,7 +32,7 @@ func MHYArticleListParse(req engine.Request, content []byte) engine.ParserResult
 		info.Each(func(i int, selection *goquery.Selection) {
 			in[key[i]] = selection.Text()
 		})
-		var articleCard = ArticleCard{
+		var articleCard = engine.ArticleCard{
 			Username: strings.TrimSpace(userName),
 			Date:     strings.TrimSpace(date),
 			Title:    title.Text(),
@@ -43,7 +43,7 @@ func MHYArticleListParse(req engine.Request, content []byte) engine.ParserResult
 		result.Requests = append(result.Requests, engine.Request{
 			Url:        articleCard.Link,
 			Data:       articleCard,
-			ParserFunc: engine.NilParser,
+			ParserFunc: MHYArticleItemParse,
 		})
 		fmt.Printf("%+v\n", articleCard)
 	})
